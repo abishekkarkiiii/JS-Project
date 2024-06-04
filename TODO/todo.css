@@ -1,0 +1,25 @@
+/* todo.css */
+
+#output1 {
+  display: flex;
+  margin-top: 2vh;
+  margin-left: 15%;
+  justify-content: space-evenly;
+}
+#paragraph {
+  margin-right: 5vw;
+}
+
+.colu1 {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-around;
+  border: solid red 5px;
+  border-radius: 15px;
+  background-color: aqua;
+}
+#header {
+  text-align: center;
+  color: red;
+  
+}
