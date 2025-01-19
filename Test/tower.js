@@ -121,9 +121,12 @@ function handleBoxClick(box) {
         revealAllBoxes();
         gameOver();
     } else if (box.dataset.type === "gem") {
+        
         box.textContent = "💎"; // Reveal the gem
         box.classList.add("gem");
+        revealActiveRowBoxes();
         currentFloor++;
+       
         if (currentFloor > 8) {
             winGame();
         } else {
@@ -181,4 +184,70 @@ function revealAllBoxes() {
         }
     });
 }
+
+
+// Function to reveal one row of boxes after a turn
+function revealActiveRowBoxes() {
+    const activeFloor = document.querySelector(".floor.active");
+    if (!activeFloor) return;
+
+    activeFloor.querySelectorAll(".box").forEach((box) => {
+        if (!box.classList.contains("gem") && !box.classList.contains("bomb")) {
+            // Reveal hidden boxes
+            box.textContent = box.dataset.type === "gem" ? "💎" : box.dataset.type === "bomb" ? "💣" : "?";
+            box.classList.add(box.dataset.type);
+        }
+    });
+}
+
+
+function autoPlay() {
+    if (autoPlayMode) {
+        alert("Auto-play is already active!");
+        return;
+    }
+
+    autoPlayMode = true;
+
+    // let rounds = parseInt(prompt("Enter the number of rounds for auto-play (Enter 0 for infinite):"), 10);
+    let rounds = 0; // Set number of rounds or infinite
+    if (isNaN(rounds)) {
+        alert("Invalid input! Auto-play canceled.");
+        autoPlayMode = false;
+        return;
+    }
+
+    const interval = setInterval(() => {
+        // Stop auto-play if rounds are exhausted or balance is zero
+        if (!autoPlayMode || (rounds === 0 && balance <= 0) || (rounds > 0 && rounds <= 0)) {
+            clearInterval(interval);
+            autoPlayMode = false;
+            return;
+        }
+
+        const activeFloor = document.querySelector(".floor.active");
+        if (!activeFloor) {
+            clearInterval(interval);
+            autoPlayMode = false;
+            return;
+        }
+
+        // Automatically click a random box on the active floor
+        const randomBox = activeFloor.children[Math.floor(Math.random() * activeFloor.children.length)];
+        randomBox.click();
+
+        // Reduce rounds if it's not infinite
+        if (rounds > 0) {
+            rounds--;
+        }
+    }, 1000); // 1-second delay between moves
+}
+
+
+function stopAutoPlay() {
+    autoPlayMode = false;
+    alert("Auto-play stopped.");
+}
+
+
 
