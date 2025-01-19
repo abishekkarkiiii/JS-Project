@@ -89,23 +89,6 @@ function shuffleArray(array) {
     return array;
 }
 
-// Handle Box Click
-// function handleBoxClick(box) {
-//     if (box.dataset.type === "bomb") {
-//         revealAllBoxes();
-//         gameOver();
-//     } else if (box.dataset.type === "gem") {
-//         box.textContent = "💎"; // Reveal the gem
-//         box.classList.add("gem");
-//         currentFloor++;
-//         if (currentFloor > 8) {
-//             winGame();
-//         } else {
-//             highlightActiveFloor();
-//         }
-//     }
-//     updateInfo();
-// }
 
 
 
@@ -247,7 +230,7 @@ function autoPlay() {
 
 function stopAutoPlay() {
     autoPlayMode = false;
-    alert("Auto-play stopped.");
+ 
 }
 
 
